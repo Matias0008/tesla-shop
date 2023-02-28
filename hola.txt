@@ -1,0 +1,10 @@
+MONGO_URL=mongodb://localhost:27017/tesladb
+NEXTAUTH_SECRET=12398y218s
+JWT_SEED=seedDeJWT928131
+
+# Variables publicas
+NEXT_PUBLIC_TAX_RATE=0.21
+
+# Providers for auth
+GITHUB_ID=b1bb4e2cec05c1fd6761
+GITHUB_SECRET=089837a4b651d750bc384680b5b4c937558c1c2b

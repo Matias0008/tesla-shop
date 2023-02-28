@@ -1,0 +1,19 @@
+.each-slide > div {
+  display: flex;
+  justify-content: center;
+  background-size: contain;
+  background-position: center;
+  height: 1200px;
+}
+
+@media screen and (max-width: 1300px) {
+  .each-slide > div {
+    height: 800px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .each-slide > div {
+    height: 500px;
+  }
+}

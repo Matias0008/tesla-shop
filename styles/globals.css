@@ -1,0 +1,56 @@
+@import "react-slideshow-image/dist/styles.css";
+@import url("https://fonts.googleapis.com/css2?family=Oxygen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat";
+}
+
+#__next {
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.circular-btn:hover {
+  background-color: black;
+}
+
+.react-slideshow-container .nav:first-of-type {
+  left: 4px;
+}
+
+.react-slideshow-container .nav:last-of-type {
+  right: 4px;
+}

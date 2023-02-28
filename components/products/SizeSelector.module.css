@@ -1,0 +1,26 @@
+.relative:hover .selectedHover::after {
+  content: "";
+  position: absolute;
+  width: 88%;
+  height: 101%;
+  transform: scale(1.2);
+  left: 0;
+  border: 1px solid black;
+}
+
+.selected::after {
+  content: "";
+  position: absolute;
+  width: 88%;
+  height: 101%;
+  transform: scale(1.2);
+  left: 0;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 1400px) {
+  .selected::after,
+  .relative:hover .selectedHover::after {
+    height: 100%;
+  }
+}
