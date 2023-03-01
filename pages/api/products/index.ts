@@ -60,7 +60,6 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
     return product;
   });
 
-  console.log(updatedProducts);
   const numberOfProducts = await ProductModel.find(condition).lean().count();
 
   return res.status(200).json({

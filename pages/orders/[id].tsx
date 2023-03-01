@@ -31,7 +31,7 @@ import { ShopLayout } from "@/components/layouts";
 import { CartList } from "@/components/cart";
 import { OrderById } from "@/components/order/OrderById";
 import { useRouter } from "next/router";
-import { tesloApi } from "@/api";
+import { tesloApi } from "@/axiosApi";
 
 interface OrderResponseBody {
   status:

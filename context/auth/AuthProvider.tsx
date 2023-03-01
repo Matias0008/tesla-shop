@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 import { AuthContext, AuthReducer } from "./";
-import { tesloApi } from "@/api";
+import { tesloApi } from "@/axiosApi";
 import { IUser } from "@/interfaces";
 
 export interface AuthState {

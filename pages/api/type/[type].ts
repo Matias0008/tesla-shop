@@ -38,6 +38,7 @@ const searchProducts = async (
     .select("title images inStock price slug -_id")
     .lean();
   await db.disconnect();
+
   //* ==> Esto es porque tenemos imagenes en el filesystem y otras en la nube
   const updatedProducts = products.map((product) => {
     product.images = product.images.map((image) => {

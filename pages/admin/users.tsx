@@ -5,7 +5,7 @@ import { Grid, MenuItem, Select } from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { PeopleAltOutlined } from "@mui/icons-material";
 
-import { tesloApi } from "@/api";
+import { tesloApi } from "@/axiosApi";
 import { IUser } from "@/interfaces";
 import { AdminLayout } from "@/components/layouts";
 

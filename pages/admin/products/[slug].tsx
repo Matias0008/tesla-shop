@@ -32,7 +32,7 @@ import {
 import { VALID_SIZES, VALID_TYPES, VALID_GENDERS } from "@/constants";
 import { dbProducts } from "@/database";
 import { Product } from "@/interfaces";
-import { tesloApi } from "@/api";
+import { tesloApi } from "@/axiosApi";
 import { ProductModel } from "@/models";
 
 import { AdminLayout } from "@/components/layouts";
