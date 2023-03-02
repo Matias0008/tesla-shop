@@ -30,7 +30,10 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           prefetch={false}
         >
           <Link>
-            <CardActionArea>
+            <CardActionArea
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               {product.inStock === 0 && (
                 <Chip
                   color="primary"
@@ -44,8 +47,6 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
               )}
               <CardMedia
                 component="img"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 image={isHovered ? product.images[1] : product.images[0]}
                 onLoad={() => setImageLoaded(true)}
               />
