@@ -57,7 +57,6 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   const numberOfProducts = await ProductModel.find(condition).lean().count();
-  console.log("ya tengo toda la informacion", numberOfProducts);
   await db.disconnect();
 
   return res.status(200).json({

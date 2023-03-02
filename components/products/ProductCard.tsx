@@ -50,21 +50,11 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
                   }}
                 />
               )}
-              {isHovered ? (
-                <CardMedia
-                  sx={{ opacity: 0 }}
-                  className="fadeIn"
-                  component="img"
-                  image={product.images[1]}
-                  onLoad={() => setImageLoaded(true)}
-                />
-              ) : (
-                <CardMedia
-                  component="img"
-                  image={product.images[0]}
-                  onLoad={() => setImageLoaded(true)}
-                />
-              )}
+              <CardMedia
+                component="img"
+                image={isHovered ? product.images[1] : product.images[0]}
+                onLoad={() => setImageLoaded(true)}
+              />
             </CardActionArea>
           </Link>
         </NextLink>
