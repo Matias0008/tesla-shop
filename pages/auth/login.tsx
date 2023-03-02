@@ -139,25 +139,25 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query,
-}) => {
-  const { p = "/" } = query; // Previous path
-  // const session = await getSession({ req });
+// export const getServerSideProps: GetServerSideProps = async ({
+//   req,
+//   query,
+// }) => {
+//   const { p = "/" } = query; // Previous path
+//   // const session = await getSession({ req });
 
-  // //* Si estamos logeados no mostramos la pagina
-  // if (session) {
-  //   return {
-  //     redirect: {
-  //       destination: p.toString(),
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+//   // //* Si estamos logeados no mostramos la pagina
+//   // if (session) {
+//   //   return {
+//   //     redirect: {
+//   //       destination: p.toString(),
+//   //       permanent: false,
+//   //     },
+//   //   };
+//   // }
 
-  //* Si no estamos logeados hacemos como si no pasara nada
-  return {
-    props: {},
-  };
-};
+//   //* Si no estamos logeados hacemos como si no pasara nada
+//   return {
+//     props: {},
+//   };
+// };
