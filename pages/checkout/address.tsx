@@ -72,7 +72,10 @@ const AddressPage = () => {
   if (!isHydrated) return;
 
   return (
-    <ShopLayout title="Checkout Address | Tesla Shop" pageDescription="Direccion de la entrega">
+    <ShopLayout
+      title="Checkout Address | Tesla Shop"
+      pageDescription="Direccion de la entrega"
+    >
       <Typography variant="h1" component="h1" sx={{ mb: 2 }}>
         Dirección
       </Typography>
@@ -173,7 +176,12 @@ const AddressPage = () => {
         </Grid>
 
         <Box display="flex" justifyContent={"center"} sx={{ mt: 3 }}>
-          <Button type="submit" color="secondary" className="circular-btn" size="large">
+          <Button
+            type="submit"
+            color="secondary"
+            className="circular-btn"
+            size="large"
+          >
             Revisar pedido
           </Button>
         </Box>

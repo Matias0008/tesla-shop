@@ -4,6 +4,7 @@ import { IProduct, Product } from "@/interfaces";
 
 export const useProducts = (url: string, config: SWRConfiguration = {}) => {
   const { data, error } = useSWR<IProduct>(`/api/${url}`, config);
+
   let dataProducts = {} as Product[];
   let pages = 0;
 

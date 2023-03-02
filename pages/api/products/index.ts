@@ -16,10 +16,8 @@ export default async function handler(
       return getProducts(req, res);
 
     default:
-      res.status(400).json({ message: "Bad request" });
+      return res.status(400).json({ message: "Bad request" });
   }
-
-  res.status(200).json({ message: "John Doe" });
 }
 
 const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -48,8 +46,6 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
     .select("title images gender price inStock slug -_id")
     .lean();
 
-  await db.disconnect();
-
   //* ==> Esto es porque tenemos imagenes en el filesystem y otras en la nube
   const updatedProducts = products.map((product) => {
     product.images = product.images.map((image) => {
@@ -61,6 +57,8 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   const numberOfProducts = await ProductModel.find(condition).lean().count();
+  console.log("ya tengo toda la informacion", numberOfProducts);
+  await db.disconnect();
 
   return res.status(200).json({
     pages: Math.ceil(numberOfProducts / limit),

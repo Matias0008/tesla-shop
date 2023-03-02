@@ -18,7 +18,10 @@ type Data =
       };
     };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   switch (req.method) {
     case "POST":
       return registerUser(req, res);
@@ -28,7 +31,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
   }
 }
 
-const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const registerUser = async (
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) => {
   const {
     email = "",
     password = "",
@@ -36,11 +42,15 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
   } = req.body as { email: string; password: string; name: string };
 
   if (password.length < 6) {
-    return res.status(400).json({ message: "La contraseña debe ser de mas de 6 caracteres" });
+    return res
+      .status(400)
+      .json({ message: "La contraseña debe ser de mas de 6 caracteres" });
   }
 
   if (name.length < 2) {
-    return res.status(400).json({ message: "La contraseña debe ser de mas de 2 caracteres" });
+    return res
+      .status(400)
+      .json({ message: "La contraseña debe ser de mas de 2 caracteres" });
   }
 
   if (!validations.isValidEmail(email)) {
@@ -71,6 +81,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
   const { _id, role } = newUser;
   const token = jwt.signToken(_id, email);
+  await db.disconnect();
 
   return res.status(200).json({
     token,

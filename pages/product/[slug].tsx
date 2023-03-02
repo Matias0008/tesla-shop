@@ -55,9 +55,14 @@ const SlugPage: NextPage<Props> = ({ product }) => {
     });
   };
 
+  const pageTitle =
+    product.title.length > 15
+      ? `${product.title.substring(0, 15)}... | Tesla-Shop`
+      : `${product.title} | Tesla-Shop`;
+
   return (
     <SlugLayout
-      title={`${product.title.substring(0, 15)}... | Tesla-Shop`}
+      title={pageTitle}
       pageDescription="Descripcion del producto"
       usePadding={false}
     >
@@ -85,16 +90,13 @@ const SlugPage: NextPage<Props> = ({ product }) => {
               <Typography
                 variant="h1"
                 component="h1"
-                mb={1}
+                mb={0.5}
                 fontSize={{ xs: "25px", lg: "30px" }}
               >
                 {product.title}
               </Typography>
               <Price
                 sx={{
-                  backgroundColor: "#cbcbcb",
-                  paddingLeft: 0.5,
-                  paddingRight: 0.5,
                   width: "fit-content",
                 }}
               >

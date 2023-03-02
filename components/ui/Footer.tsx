@@ -8,11 +8,11 @@ export const Footer = () => {
       flex={1}
       justifyContent="center"
       alignItems="center"
-      minHeight={200}
+      minHeight={100}
       bgcolor="black"
     >
       <Box height={"100%"} color="white">
-        <Typography>Footer</Typography>
+        <Typography fontWeight="bold">Tesla © 2023</Typography>
       </Box>
     </Box>
   );

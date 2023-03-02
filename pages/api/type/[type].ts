@@ -37,7 +37,6 @@ const searchProducts = async (
     .skip((Number(page) - 1) * limit)
     .select("title images inStock price slug -_id")
     .lean();
-  await db.disconnect();
 
   //* ==> Esto es porque tenemos imagenes en el filesystem y otras en la nube
   const updatedProducts = products.map((product) => {
@@ -49,6 +48,7 @@ const searchProducts = async (
     return product;
   });
   const numberOfProducts = await ProductModel.find({ type }).lean().count();
+  await db.disconnect();
 
   return res.status(200).json({
     pages: Math.ceil(numberOfProducts / limit),

@@ -59,11 +59,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   let products = await dbProducts.getProductsByTerm(query);
   const foundProducts = products.length > 0;
 
-  if (!foundProducts) {
-    console.log("no se encontro el producto");
-    products = await dbProducts.getAllProducts();
-  }
-
   return {
     props: {
       products,

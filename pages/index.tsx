@@ -1,6 +1,14 @@
 import NextLink from "next/link";
 
-import { Box, Card, CardMedia, Chip, Grid, Link, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardMedia,
+  Chip,
+  Grid,
+  Link,
+  Typography,
+} from "@mui/material";
 
 import { useProducts } from "@/hooks";
 import { ShopLayout } from "@/components/layouts";
@@ -16,7 +24,13 @@ export default function Home() {
       pageDescription={"Encuentra los mejores productos de Tesla aqui"}
     >
       <Grid container spacing={{ xs: 3, md: 8 }} mb={{ xs: 3, md: 6 }}>
-        <Grid item xs={12} md={6} display="flex" justifyContent={{ xs: "start", md: "center" }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          display="flex"
+          justifyContent={{ xs: "start", md: "center" }}
+        >
           <Card sx={{ height: { xs: 300, md: 800 }, width: "100%" }}>
             <Chip
               sx={{
@@ -41,14 +55,24 @@ export default function Home() {
                       transform: "scale(1.10)",
                     },
                     transition: "all .3s ease-out",
-                    objectPosition: { xs: "center", sm: "0% 20%", md: "center" },
+                    objectPosition: {
+                      xs: "center",
+                      sm: "0% 20%",
+                      md: "center",
+                    },
                   }}
                 />
               </Link>
             </NextLink>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6} display="flex" justifyContent={{ xs: "start", md: "center" }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          display="flex"
+          justifyContent={{ xs: "start", md: "center" }}
+        >
           <Card sx={{ height: { xs: 300, md: 800 }, width: "100%" }}>
             <Chip
               sx={{
@@ -73,7 +97,11 @@ export default function Home() {
                       transform: "scale(1.10)",
                     },
                     transition: "all .3s ease-out",
-                    objectPosition: { xs: "center", sm: "0% 20%", md: "center" },
+                    objectPosition: {
+                      xs: "center",
+                      sm: "0% 20%",
+                      md: "center",
+                    },
                   }}
                 />
               </Link>
@@ -81,7 +109,11 @@ export default function Home() {
           </Card>
         </Grid>
       </Grid>
-      {isLoading ? <FullscreenLoading /> : <ProductList products={products.slice(0, 8)} />}
+      {isLoading ? (
+        <FullscreenLoading />
+      ) : (
+        <ProductList products={products.slice(0, 8)} />
+      )}
 
       <Box mt={4} display="flex" justifyContent="center">
         <NextLink href="/products" passHref legacyBehavior>

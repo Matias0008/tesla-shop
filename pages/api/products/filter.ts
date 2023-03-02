@@ -38,8 +38,6 @@ const getProductsByFilter = async (
     .select("title images inStock price sizes slug -_id")
     .lean();
 
-  await db.disconnect();
-
   if (!products) {
     return res
       .status(404)
@@ -47,6 +45,7 @@ const getProductsByFilter = async (
   }
 
   const numberOfProducts = await ProductModel.find(condition).lean().count();
+  await db.disconnect();
 
   return res.status(200).json({
     pages: Math.ceil(numberOfProducts / limit),

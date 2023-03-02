@@ -17,3 +17,13 @@
     height: 500px;
   }
 }
+
+.imageBelowSlide {
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.1s ease;
+}
+
+.imageBelowSlide:hover {
+  opacity: 0.4 !important;
+}

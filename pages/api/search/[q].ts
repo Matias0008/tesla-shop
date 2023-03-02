@@ -39,13 +39,13 @@ const searchProducts = async (
     .skip((Number(page) - 1) * limit)
     .select("title images inStock price slug -_id")
     .lean();
-  await db.disconnect();
 
   const numberOfProducts = await ProductModel.find({
     $text: { $search: q },
   })
     .lean()
     .count();
+  await db.disconnect();
 
   return res.status(200).json({
     pages: Math.ceil(numberOfProducts / limit),
