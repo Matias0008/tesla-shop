@@ -4,10 +4,18 @@ import { useRouter } from "next/router";
 import { getSession, signIn } from "next-auth/react";
 import NextLink from "next/link";
 
-import { Box, Button, Chip, Grid, Link, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { ErrorOutlined } from "@mui/icons-material";
+import ErrorOutlined from "@mui/icons-material/ErrorOutlined";
 
 import { validations } from "@/utils";
 import { AuthContext } from "@/context/auth";
@@ -69,7 +77,10 @@ const RegisterPage = () => {
                 variant="filled"
                 {...register("name", {
                   required: "El nombre es requerido",
-                  minLength: { value: 3, message: "El nombre debe tener minimo 3 caracteres" },
+                  minLength: {
+                    value: 3,
+                    message: "El nombre debe tener minimo 3 caracteres",
+                  },
                 })}
                 error={!!errors.name}
                 helperText={errors.name ? errors.name.message : ""}
@@ -92,7 +103,10 @@ const RegisterPage = () => {
                 type="password"
                 {...register("password", {
                   required: "La contraseña es requerida",
-                  minLength: { value: 6, message: "La contraseña debe tener minimo 6 caracteres" },
+                  minLength: {
+                    value: 6,
+                    message: "La contraseña debe tener minimo 6 caracteres",
+                  },
                 })}
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : ""}
@@ -114,7 +128,11 @@ const RegisterPage = () => {
 
           <Grid item xs={12} display="flex" justifyContent="flex-end" mt={1}>
             <NextLink
-              href={router.query.p ? `/auth/login?p=${router.query.p.toString()}` : "/auth/login"}
+              href={
+                router.query.p
+                  ? `/auth/login?p=${router.query.p.toString()}`
+                  : "/auth/login"
+              }
               passHref
               legacyBehavior
             >
