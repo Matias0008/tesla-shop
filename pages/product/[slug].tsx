@@ -2,7 +2,11 @@ import { useContext, useState } from "react";
 import { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Chip from "@mui/material/Chip";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import { dbProducts } from "@/database";
 import { CartContext } from "@/context/cart";

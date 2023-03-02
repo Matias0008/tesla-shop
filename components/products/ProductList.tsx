@@ -1,10 +1,8 @@
-import { Box, Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
-import { ISizes, Product } from "@/interfaces";
+import { Product } from "@/interfaces";
 
 import { ProductCard } from "./ProductCard";
-import { SizeSelector } from "./SizeSelector";
-import { useState } from "react";
 
 interface Props {
   products: Product[];
