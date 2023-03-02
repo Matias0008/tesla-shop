@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getProviders, signIn } from "next-auth/react";
+import { getProviders, getSession, signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import NextLink from "next/link";
 
@@ -21,8 +21,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import { AuthLayout } from "@/components/layouts";
 import { validations } from "@/utils";
 
-import { authOptions } from "../api/auth/[...nextauth]";
-
 type FormData = {
   email: string;
   password: string;
@@ -32,7 +30,12 @@ const ICONS_PROVIDERS: any = {
   github: <GitHubIcon sx={{ fontSize: 35 }} />,
 };
 
-const LoginPage = () => {
+interface Props {
+  session: any;
+  destination: string;
+}
+
+const LoginPage: React.FC<Props> = ({ session, destination }) => {
   const router = useRouter();
   const [providers, setProviders] = useState<any>("");
   const [showError, setShowError] = useState(false);
@@ -42,13 +45,20 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormData>();
 
+  useEffect(() => {
+    if (session) {
+      router.replace(destination);
+    }
+    getProviders().then(setProviders);
+  }, [destination, router, session]);
+
+  if (session) {
+    return <></>;
+  }
+
   const onLoginUser = async ({ email, password }: FormData) => {
     await signIn("credentials", { email, password });
   };
-
-  useEffect(() => {
-    getProviders().then(setProviders);
-  }, []);
 
   return (
     <AuthLayout title="Ingresar | Tesla-Shop">
@@ -143,22 +153,13 @@ const LoginPage = () => {
 export default LoginPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { query } = ctx;
+  const { req, query } = ctx;
   const { p = "/" } = query; // Previous path
-  const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-  // //* Si estamos logeados no mostramos la pagina
-  if (session) {
-    return {
-      redirect: {
-        destination: p.toString(),
-        permanent: false,
-      },
-    };
-  }
-
-  //* Si no estamos logeados hacemos como si no pasara nada
   return {
-    props: {},
+    props: {
+      session: await getSession({ req }),
+      destination: p.toString(),
+    },
   };
 };
