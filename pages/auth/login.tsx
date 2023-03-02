@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
@@ -16,7 +15,6 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import ErrorOutlined from "@mui/icons-material/ErrorOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 import { AuthLayout } from "@/components/layouts";
@@ -60,13 +58,6 @@ const LoginPage = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} display="flex" gap={1} flexDirection="column">
-              <Chip
-                label="Verifica el usuario y/o contraseña"
-                color="error"
-                icon={<ErrorOutlined />}
-                className="fadeIn"
-                sx={{ display: showError ? "flex" : "none" }}
-              />
               <TextField
                 type="email"
                 label="Correo"
