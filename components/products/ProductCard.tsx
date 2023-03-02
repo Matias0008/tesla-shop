@@ -21,15 +21,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <Grid
-      item
-      xs={6}
-      sm={4}
-      md={3}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      key={product._id}
-    >
+    <Grid item xs={6} sm={4} md={3} key={product._id}>
       <Card>
         <NextLink
           href={`/product/${product.slug}`}
@@ -52,6 +44,8 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
               )}
               <CardMedia
                 component="img"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
                 image={isHovered ? product.images[1] : product.images[0]}
                 onLoad={() => setImageLoaded(true)}
               />
