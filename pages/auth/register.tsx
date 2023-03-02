@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import NextLink from "next/link";
 
 import {
@@ -20,6 +21,8 @@ import ErrorOutlined from "@mui/icons-material/ErrorOutlined";
 import { validations } from "@/utils";
 import { AuthContext } from "@/context/auth";
 import { AuthLayout } from "@/components/layouts";
+
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type FormData = {
   name: string;
@@ -148,9 +151,9 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req, query } = ctx;
+  const { query } = ctx;
   const { p = "/" } = query;
-  const session = await getSession({ req });
+  const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
   //* Si estamos logeados no mostramos la pagina directamente
   if (session) {

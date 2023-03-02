@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { getProviders, getSession, signIn } from "next-auth/react";
+import { getProviders, signIn } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import NextLink from "next/link";
 
 import { useForm } from "react-hook-form";
@@ -19,6 +20,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 
 import { AuthLayout } from "@/components/layouts";
 import { validations } from "@/utils";
+
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type FormData = {
   email: string;
@@ -139,25 +142,23 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//   req,
-//   query,
-// }) => {
-//   const { p = "/" } = query; // Previous path
-//   // const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { query } = ctx;
+  const { p = "/" } = query; // Previous path
+  const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-//   // //* Si estamos logeados no mostramos la pagina
-//   // if (session) {
-//   //   return {
-//   //     redirect: {
-//   //       destination: p.toString(),
-//   //       permanent: false,
-//   //     },
-//   //   };
-//   // }
+  // //* Si estamos logeados no mostramos la pagina
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false,
+      },
+    };
+  }
 
-//   //* Si no estamos logeados hacemos como si no pasara nada
-//   return {
-//     props: {},
-//   };
-// };
+  //* Si no estamos logeados hacemos como si no pasara nada
+  return {
+    props: {},
+  };
+};
