@@ -144,7 +144,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
 }) => {
   const { p = "/" } = query; // Previous path
-  const session = await getSession({ req });
+  // const session = await getSession({ req });
 
   // //* Si estamos logeados no mostramos la pagina
   // if (session) {
