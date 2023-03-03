@@ -63,3 +63,20 @@ export const getProductsByTerm = async (term: string): Promise<Product[]> => {
 
   return updatedProducts;
 };
+
+export const getRecommendations = async (): Promise<Product[]> => {
+  let randomSkip = Math.floor(Math.random() * 30);
+  await db.connect();
+  const products = await ProductModel.find().lean().skip(randomSkip).limit(4);
+  await db.disconnect();
+  const updatedProducts = products.map((product) => {
+    product.images = product.images.map((image) => {
+      return image.includes("http")
+        ? image
+        : `${process.env.HOST_NAME}/products/${image}`;
+    });
+    return product;
+  });
+
+  return JSON.parse(JSON.stringify(updatedProducts));
+};

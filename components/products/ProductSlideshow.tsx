@@ -59,6 +59,7 @@ export const ProductSlideshow: React.FC<Props> = ({ images }) => {
                     style={{
                       opacity: activeImage === index ? 0.4 : "initial",
                     }}
+                    priority
                   />
                 </Box>
               </Grid>

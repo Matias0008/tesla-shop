@@ -12,16 +12,22 @@ import { dbProducts } from "@/database";
 import { CartContext } from "@/context/cart";
 import { ICartProduct, ISizes, Product } from "@/interfaces";
 
-import { ProductSlideshow, SizeSelector } from "@/components/products";
+import {
+  ProductList,
+  ProductSlideshow,
+  SizeSelector,
+} from "@/components/products";
 import { ItemCounter, Price, Text } from "@/components/ui";
 import { SlugLayout } from "@/components/layouts";
 import { VALID_SIZES } from "@/constants";
+import { RecommendationList } from "../../components/products/RecommendationList";
 
 interface Props {
   product: Product;
+  recommendations: Product[];
 }
 
-const SlugPage: NextPage<Props> = ({ product }) => {
+const SlugPage: NextPage<Props> = ({ product, recommendations }) => {
   const router = useRouter();
   const { addProductToCart } = useContext(CartContext);
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
@@ -162,6 +168,22 @@ const SlugPage: NextPage<Props> = ({ product }) => {
             </Box>
           </Box>
         </Grid>
+        {/* Product recommendations */}
+      </Grid>
+      <Grid container>
+        <Grid container padding="36px">
+          <Grid item xs={12}>
+            <Typography
+              variant="h1"
+              component="h1"
+              mb={2.5}
+              fontSize={{ xs: "25px", lg: "30px" }}
+            >
+              Recomendaciones
+            </Typography>
+          </Grid>
+          <RecommendationList products={recommendations} />
+        </Grid>
       </Grid>
     </SlugLayout>
   );
@@ -183,7 +205,13 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params as { slug: string };
-  const product = await dbProducts.getProductBySlug(slug);
+  // const product = await dbProducts.getProductBySlug(slug);
+  // const recommendations = await dbProducts.getRecommendations();
+
+  const [product, recommendations] = await Promise.all([
+    await dbProducts.getProductBySlug(slug),
+    await dbProducts.getRecommendations(),
+  ]);
 
   if (!product) {
     return {
@@ -195,7 +223,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   return {
-    props: { product },
+    props: { product, recommendations },
     revalidate: 86400,
   };
 };
