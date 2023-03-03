@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import NextLink from "next/link";
 
 import Box from "@mui/material/Box";
@@ -12,45 +12,17 @@ import Typography from "@mui/material/Typography";
 
 import { Product } from "@/interfaces";
 
+import styles from "./ProductCard.module.css";
+
 interface Props {
   product: Product;
 }
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const mouseMoveRef = useRef<any>();
-
-  useEffect(() => {
-    const checkHover = (e: any) => {
-      if (mouseMoveRef.current) {
-        const mouseOver = mouseMoveRef.current.contains(e.target);
-        if (!isHovered && mouseOver) {
-          setIsHovered(true);
-        }
-
-        if (isHovered && !mouseOver) {
-          setIsHovered(false);
-        }
-      }
-    };
-    window.addEventListener("mousemove", checkHover, true);
-    return () => {
-      window.removeEventListener("mousemove", checkHover, true);
-    };
-  }, [isHovered]);
 
   return (
-    <Grid
-      item
-      xs={6}
-      sm={4}
-      md={3}
-      key={product._id}
-      ref={mouseMoveRef}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <Grid item xs={6} sm={4} md={3} key={product._id}>
       <Card>
         <NextLink
           href={`/product/${product.slug}`}
@@ -59,7 +31,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           prefetch={false}
         >
           <Link>
-            <CardActionArea>
+            <CardActionArea className={styles.hoverableItem}>
               {product.inStock === 0 && (
                 <Chip
                   color="primary"
@@ -73,8 +45,14 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
               )}
               <CardMedia
                 component="img"
-                image={isHovered ? product.images[1] : product.images[0]}
+                image={product.images[0]}
                 onLoad={() => setImageLoaded(true)}
+              />
+              <CardMedia
+                component="img"
+                image={product.images[1]}
+                onLoad={() => setImageLoaded(true)}
+                sx={{ display: "none" }}
               />
             </CardActionArea>
           </Link>

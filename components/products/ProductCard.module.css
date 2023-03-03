@@ -1,0 +1,7 @@
+.hoverableItem:hover img:nth-child(1) {
+  display: none !important;
+}
+
+.hoverableItem:hover img:nth-child(2) {
+  display: block !important;
+}
