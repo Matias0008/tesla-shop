@@ -110,25 +110,26 @@ export default function Home() {
       {isLoading ? (
         <FullscreenLoading />
       ) : (
-        <ProductList products={products.slice(0, 8)} />
+        <>
+          <ProductList products={products.slice(0, 8)} />
+          <Box mt={4} display="flex" justifyContent="center">
+            <NextLink href="/products" passHref legacyBehavior>
+              <Link>
+                <Typography
+                  padding={1}
+                  sx={{ background: "#4a4a4a", color: "white" }}
+                  minWidth={{ xs: 300, md: 400 }}
+                  maxWidth={"100%"}
+                  variant="subtitle1"
+                  textAlign="center"
+                >
+                  Ver todos los productos
+                </Typography>
+              </Link>
+            </NextLink>
+          </Box>
+        </>
       )}
-
-      <Box mt={4} display="flex" justifyContent="center">
-        <NextLink href="/products" passHref legacyBehavior>
-          <Link>
-            <Typography
-              padding={1}
-              sx={{ background: "#4a4a4a", color: "white" }}
-              minWidth={{ xs: 300, md: 400 }}
-              maxWidth={"100%"}
-              variant="subtitle1"
-              textAlign="center"
-            >
-              Ver todos los productos
-            </Typography>
-          </Link>
-        </NextLink>
-      </Box>
     </ShopLayout>
   );
 }
