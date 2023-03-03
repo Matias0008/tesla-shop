@@ -30,31 +30,29 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           legacyBehavior
           prefetch={false}
         >
-          <Link>
-            <CardActionArea className={styles.hoverableItem}>
-              {product.inStock === 0 && (
-                <Chip
-                  color="primary"
-                  label="No hay disponibles"
-                  sx={{
-                    position: "absolute",
-                    zIndex: 3,
-                    borderRadius: 0,
-                  }}
-                />
-              )}
-              <CardMedia
-                component="img"
-                image={product.images[0]}
-                onLoad={() => setImageLoaded(true)}
+          <Link className={styles.hoverableItem}>
+            {product.inStock === 0 && (
+              <Chip
+                color="primary"
+                label="No hay disponibles"
+                sx={{
+                  position: "absolute",
+                  zIndex: 3,
+                  borderRadius: 0,
+                }}
               />
-              <CardMedia
-                component="img"
-                image={product.images[1]}
-                onLoad={() => setImageLoaded(true)}
-                sx={{ display: "none" }}
-              />
-            </CardActionArea>
+            )}
+            <CardMedia
+              component="img"
+              image={product.images[0]}
+              onLoad={() => setImageLoaded(true)}
+            />
+            <CardMedia
+              component="img"
+              image={product.images[1]}
+              onLoad={() => setImageLoaded(true)}
+              sx={{ display: "none" }}
+            />
           </Link>
         </NextLink>
       </Card>
