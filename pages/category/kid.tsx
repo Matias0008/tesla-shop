@@ -1,27 +1,26 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { Box, Pagination as MuiPagination, Typography } from "@mui/material";
 
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
+
+import { FilterContext } from "@/context/filters";
 import { useProducts } from "@/hooks";
-import { ISizes } from "@/interfaces";
+
 import { Pagination, FullscreenLoading } from "@/components/ui";
 import { ProductList } from "@/components/products";
 import { ShopLayout } from "@/components/layouts";
 import { Filters } from "@/components/products";
 
 const KidCategoryPage = () => {
+  const { filters } = useContext(FilterContext);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState<ISizes>("all");
   const { products, pages, isLoading } = useProducts(
-    `/products?page=${page}&size=${size}&gender=kid`
+    `/products?page=${page}&size=${(filters as any)["size"]}&gender=kid`
   );
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
-  };
-
-  const onSizeChange = (size: ISizes) => {
-    setSize(size);
   };
 
   return (
@@ -33,20 +32,31 @@ const KidCategoryPage = () => {
         Tienda
       </Typography>
       <Typography variant="h2" sx={{ mb: 2 }}>
-        Categoria: hombre
+        Categoria: Niños
       </Typography>
       {isLoading ? (
         <FullscreenLoading />
       ) : (
         <Box display="flex" gap={4} flexDirection={{ xs: "column", lg: "row" }}>
-          <Filters
-            onSizeChange={(size) => onSizeChange(size)}
-            selectedSize={size}
-          />
-          <ProductList products={products} />
+          <Filters products={products} />
+          {products.length > 0 ? (
+            <ProductList products={products} />
+          ) : (
+            <Box
+              display="flex"
+              alignItems="center"
+              width="100%"
+              flexDirection="column"
+            >
+              <ProductionQuantityLimitsIcon fontSize="large" color="error" />
+              <h1>No hay productos con ese talle</h1>
+            </Box>
+          )}
         </Box>
       )}
-      <Pagination page={page} pages={pages} handleChange={handleChange} />
+      {products.length > 0 && (
+        <Pagination page={page} pages={pages} handleChange={handleChange} />
+      )}
     </ShopLayout>
   );
 };

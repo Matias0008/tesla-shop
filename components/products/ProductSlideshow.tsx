@@ -2,15 +2,30 @@ import { useRef, useState, Fragment } from "react";
 import { Slide, SlideshowRef } from "react-slideshow-image";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 
 import styles from "./ProductSlideshow.module.css";
 import Image from "next/legacy/image";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
+
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 interface Props {
   images: string[];
 }
+
+const slideProperties = {
+  nextArrow: (
+    <IconButton>
+      <ArrowForwardIosIcon color="primary" />
+    </IconButton>
+  ),
+  prevArrow: (
+    <IconButton>
+      <ArrowBackIosNewIcon color="primary" />
+    </IconButton>
+  ),
+};
 
 export const ProductSlideshow: React.FC<Props> = ({ images }) => {
   const slideRef = useRef<SlideshowRef>(null);
@@ -23,8 +38,10 @@ export const ProductSlideshow: React.FC<Props> = ({ images }) => {
   return (
     <>
       <Slide
+        {...slideProperties}
         easing="ease"
         duration={7000}
+        transitionDuration={500}
         ref={slideRef}
         autoplay
         onChange={onSlideChange}

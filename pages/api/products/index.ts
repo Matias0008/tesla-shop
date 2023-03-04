@@ -43,7 +43,7 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
   const products = await ProductModel.find(condition)
     .limit(limit * 1)
     .skip((Number(page) - 1) * limit)
-    .select("title images gender price inStock slug -_id")
+    .select("title images gender price inStock slug sizes -_id")
     .lean();
 
   //* ==> Esto es porque tenemos imagenes en el filesystem y otras en la nube

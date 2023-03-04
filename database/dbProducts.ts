@@ -1,4 +1,4 @@
-import { IProduct, Product } from "@/interfaces";
+import { IProduct, Product, IGender } from "@/interfaces";
 import { ProductModel } from "@/models";
 import { db } from ".";
 
@@ -64,12 +64,26 @@ export const getProductsByTerm = async (term: string): Promise<Product[]> => {
   return updatedProducts;
 };
 
-export const getRecommendations = async (): Promise<Product[]> => {
-  let randomSkip = Math.floor(Math.random() * 30);
+export const getRecommendations = async ({
+  gender,
+  slug,
+}: {
+  gender: string;
+  slug: string;
+}): Promise<Product[]> => {
   await db.connect();
-  const products = await ProductModel.find().lean().skip(randomSkip).limit(4);
+  const numberOfProducts = await ProductModel.find({ gender }).count();
+  let randomNumber = Math.floor(Math.random() * numberOfProducts);
+  let randomSkip = randomNumber - 4 > 0 ? randomNumber : 0;
+  const randomProducts = await ProductModel.find({
+    gender,
+    slug: { $ne: slug },
+  })
+    .lean()
+    .skip(randomSkip)
+    .limit(4);
   await db.disconnect();
-  const updatedProducts = products.map((product) => {
+  const updatedProducts = randomProducts.map((product) => {
     product.images = product.images.map((image) => {
       return image.includes("http")
         ? image

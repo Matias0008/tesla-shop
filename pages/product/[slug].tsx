@@ -205,13 +205,8 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params as { slug: string };
-  // const product = await dbProducts.getProductBySlug(slug);
-  // const recommendations = await dbProducts.getRecommendations();
 
-  const [product, recommendations] = await Promise.all([
-    await dbProducts.getProductBySlug(slug),
-    await dbProducts.getRecommendations(),
-  ]);
+  const product = await dbProducts.getProductBySlug(slug);
 
   if (!product) {
     return {
@@ -222,6 +217,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
+  const recommendations = await dbProducts.getRecommendations({
+    gender: product.gender,
+    slug: product.slug,
+  });
   return {
     props: { product, recommendations },
     revalidate: 86400,

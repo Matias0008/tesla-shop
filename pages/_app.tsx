@@ -12,6 +12,7 @@ import { CartProvider } from "@/context/cart";
 import { AuthProvider } from "@/context/auth";
 
 import "@/styles/globals.css";
+import { FilterProvider } from "@/context/filters";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -28,14 +29,16 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         >
           <AuthProvider>
-            <CartProvider>
-              <UIProvider>
-                <ThemeProvider theme={lightTheme}>
-                  <CssBaseline />
-                  <Component {...pageProps} />
-                </ThemeProvider>
-              </UIProvider>
-            </CartProvider>
+            <FilterProvider>
+              <CartProvider>
+                <UIProvider>
+                  <ThemeProvider theme={lightTheme}>
+                    <CssBaseline />
+                    <Component {...pageProps} />
+                  </ThemeProvider>
+                </UIProvider>
+              </CartProvider>
+            </FilterProvider>
           </AuthProvider>
         </SWRConfig>
       </PayPalScriptProvider>

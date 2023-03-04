@@ -1,24 +1,23 @@
-import { ISizes } from "@/interfaces";
+import { useContext } from "react";
 import { Box, Button } from "@mui/material";
-import { useState } from "react";
 
-import { SizeSelector } from "./SizeSelector";
+import { FilterSizeSelector, FilterGenderSelector } from "@/components/filters";
+import { FilterContext } from "@/context/filters/";
+import { Product } from "@/interfaces";
 
 interface Props {
-  onSizeChange: (size: ISizes) => void;
-  selectedSize: ISizes;
+  showGenderFilter?: boolean;
+  products?: Product[];
 }
 
-export const Filters: React.FC<Props> = ({ onSizeChange, selectedSize }) => {
-  const [filterVisible, setFilterVisible] = useState(false);
+export const Filters: React.FC<Props> = ({
+  showGenderFilter = false,
+  products,
+}) => {
+  const { openFilters, toggleViewFilters } = useContext(FilterContext);
 
   const onToggleVisible = () => {
-    setFilterVisible(!filterVisible);
-  };
-
-  const onChange = (size: ISizes) => {
-    onSizeChange(size);
-    setFilterVisible(true);
+    toggleViewFilters();
   };
 
   return (
@@ -34,17 +33,21 @@ export const Filters: React.FC<Props> = ({ onSizeChange, selectedSize }) => {
           color="secondary"
           onClick={onToggleVisible}
           sx={{
-            display: { xs: "block", md: "none" },
+            display: { xs: "block", lg: "none" },
+            "&:hover": {
+              backgroundColor: "rgb(83, 83, 83)",
+            },
           }}
         >
-          {filterVisible ? "Ocultar filtros" : "Ver filtros"}
+          {openFilters ? "Ocultar filtros" : "Ver filtros"}
         </Button>
-        <Box display={{ xs: filterVisible ? "flex" : "none", lg: "flex" }}>
-          <SizeSelector
-            sizes={["XS", "S", "M", "L", "XL"]}
-            onSizeChange={(size) => onChange(size)}
-            selectedSize={selectedSize}
-          />
+        <Box
+          display={{ xs: openFilters ? "flex" : "none", lg: "flex" }}
+          gap={3}
+          flexDirection="column"
+        >
+          <FilterSizeSelector products={products} />
+          {showGenderFilter && <FilterGenderSelector />}
         </Box>
       </Box>
     </>
