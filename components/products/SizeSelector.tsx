@@ -4,9 +4,9 @@ import styles from "./SizeSelector.module.css";
 import { ISizes } from "@/interfaces";
 
 interface Props {
-  selectedSize?: string;
-  sizes: string[];
-  onSizeChange: (size: string) => void;
+  selectedSize?: ISizes;
+  sizes: ISizes[];
+  onSizeChange: (size: ISizes) => void;
 }
 
 export const SizeSelector: React.FC<Props> = ({
